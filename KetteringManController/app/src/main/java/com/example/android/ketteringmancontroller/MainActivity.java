@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Start the play activity
                 Intent intent = new Intent(MainActivity.this, PlayActivity.class);
                 startActivity(intent);
             }
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mLeaderboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Start the leaderboard activity
                 Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
                 startActivity(intent);
             }
