@@ -4,15 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeaderboardActivity">
+    tools:context=".PlayActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/play_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/score_label"
+        style="@style/PlayActivityText"
+        android:padding="@dimen/item_list_small_margins"
+        android:text="@string/score_label"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/score_text"
+        style="@style/PlayActivityText"
+        android:text="@string/initial_score"
+        app:layout_constraintBaseline_toBaselineOf="@id/score_label"
+        app:layout_constraintLeft_toRightOf="@id/score_label" />
+
+    <TextView
+        android:id="@+id/lives_label"
+        style="@style/PlayActivityText"
+        android:text="@string/lives_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/lives_text"
+        app:layout_constraintRight_toLeftOf="@id/lives_text" />
+
+    <TextView
+        android:id="@+id/lives_text"
+        style="@style/PlayActivityText"
+        android:padding="@dimen/item_list_small_margins"
+        android:text="@string/initial_lives"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/PlayActivityText"
+        android:text="@string/swipe_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/score_label" />
 
 </android.support.constraint.ConstraintLayout>

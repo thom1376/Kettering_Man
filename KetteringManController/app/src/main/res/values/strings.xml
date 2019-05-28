@@ -2,4 +2,9 @@
     <string name="app_name">Kettering Man</string>
     <string name="play_text">Play</string>
     <string name="leaderboard_text">Leaderboard</string>
+    <string name="initial_score">0</string>
+    <string name="score_label">Score:</string>
+    <string name="initial_lives">3</string>
+    <string name="lives_label">Lives:</string>
+    <string name="swipe_text">Swipe to change directions</string>
 </resources>
