@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kettering Man</string>
+    <string name="play_text">Play</string>
+    <string name="leaderboard_text">Leaderboard</string>
 </resources>
