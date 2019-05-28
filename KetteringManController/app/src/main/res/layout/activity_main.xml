@@ -35,10 +35,12 @@
 
 
         <Button
+            android:id="@+id/play_button"
             style="@style/MainButton"
             android:text="@string/play_text" />
 
         <Button
+            android:id="@+id/leaderboard_button"
             style="@style/MainButton"
             android:text="@string/leaderboard_text" />
     </LinearLayout>
