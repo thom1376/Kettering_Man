@@ -7,4 +7,5 @@
     <string name="initial_lives">3</string>
     <string name="lives_label">Lives:</string>
     <string name="swipe_text">Swipe to change directions</string>
+    <string name="empty_text">No scores yet!</string>
 </resources>
