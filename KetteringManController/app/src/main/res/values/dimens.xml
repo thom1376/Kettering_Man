@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="header_size">36sp</dimen>
     <dimen name="item_list_margins">24dp</dimen>
     <dimen name="item_list_small_margins">10dp</dimen>
-    <dimen name="header_size">36sp</dimen>
+    <dimen name="item_list_spacing">10dp</dimen>
 </resources>

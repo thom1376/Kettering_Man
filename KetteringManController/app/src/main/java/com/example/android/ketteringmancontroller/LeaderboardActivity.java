@@ -140,6 +140,5 @@ public class LeaderboardActivity extends AppCompatActivity {
                     }
                 };
         mRecyclerView.setAdapter(adapter);
-
     }
 }
