@@ -16,6 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="add"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -27,6 +28,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="remove"
         app:layout_constraintTop_toBottomOf="@id/image" />
 
     <RelativeLayout
