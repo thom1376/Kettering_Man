@@ -5,7 +5,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.ketteringmancontroller.data.FirebaseDbHelper;
 
@@ -16,16 +15,6 @@ public class PlayActivity extends AppCompatActivity
 
     TextView mScoreLabel;
     FirebaseDbHelper mDbHelper;
-
-    public static LeaderboardDialogFragment newLeaderboardFragment(int score) {
-        LeaderboardDialogFragment leaderboardDialog = new LeaderboardDialogFragment();
-
-        // Supply score as an argument.
-        Bundle args = new Bundle();
-        args.putInt("score", score);
-        leaderboardDialog.setArguments(args);
-        return leaderboardDialog;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +40,31 @@ public class PlayActivity extends AppCompatActivity
         int score = dialog.getScore();
 
         mDbHelper.insert(new LeaderboardItem(initials, score));
-        Toast.makeText(this, "Initials: " + initials + " Score: " + score, Toast.LENGTH_SHORT).show();
+    }
+
+    public static LeaderboardDialogFragment newLeaderboardFragment(int score) {
+        LeaderboardDialogFragment leaderboardDialog = new LeaderboardDialogFragment();
+
+        // Supply score as an argument.
+        Bundle args = new Bundle();
+        args.putInt("score", score);
+        leaderboardDialog.setArguments(args);
+        return leaderboardDialog;
     }
 
     @Override
     public void onDialogNegativeClick(LeaderboardDialogFragment dialog) {
-        Toast.makeText(this, "onDialogNegativeClick", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public void onDialogDismiss(LeaderboardDialogFragment dialog) {
+        finish();
     }
 }

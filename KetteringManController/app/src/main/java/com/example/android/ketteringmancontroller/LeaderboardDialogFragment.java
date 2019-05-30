@@ -45,20 +45,24 @@ public class LeaderboardDialogFragment extends DialogFragment {
                         EditText initialsText = v.findViewById(R.id.initials_text);
                         mInitials = initialsText.getText().toString();
 
-                        if (mInitials.isEmpty())
-                            dialog.dismiss();
-                        else
+                        if (!mInitials.isEmpty())
                             listener.onDialogPositiveClick(LeaderboardDialogFragment.this);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.onDialogNegativeClick(LeaderboardDialogFragment.this);
+                        listener.onDialogNegativeClick((LeaderboardDialogFragment) dialog);
                     }
                 });
         mDialog = builder.create();
         return mDialog;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        listener.onDialogDismiss((LeaderboardDialogFragment) dialog);
     }
 
     // Override the Fragment.onAttach() method to instantiate the LeaderboardDialogListener
@@ -126,5 +130,7 @@ public class LeaderboardDialogFragment extends DialogFragment {
         void onDialogPositiveClick(LeaderboardDialogFragment dialog);
 
         void onDialogNegativeClick(LeaderboardDialogFragment dialog);
+
+        void onDialogDismiss(LeaderboardDialogFragment dialog);
     }
 }
