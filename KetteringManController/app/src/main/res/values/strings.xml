@@ -8,4 +8,6 @@
     <string name="lives_label">Lives:</string>
     <string name="swipe_text">Swipe to change directions</string>
     <string name="empty_text">No scores yet!</string>
+    <string name="high_score_text">High score!</string>
+    <string name="initials_dialog_text">Initials:</string>
 </resources>
