@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PlayActivity extends AppCompatActivity implements LeaderboardDialogFragment.LeaderboardDialogListener {
+import com.example.android.ketteringmancontroller.data.FirebaseDbHelper;
+
+import java.util.Random;
+
+public class PlayActivity extends AppCompatActivity
+        implements LeaderboardDialogFragment.LeaderboardDialogListener {
 
     TextView mScoreLabel;
+    FirebaseDbHelper mDbHelper;
 
     public static LeaderboardDialogFragment newLeaderboardFragment(int score) {
         LeaderboardDialogFragment leaderboardDialog = new LeaderboardDialogFragment();
@@ -30,10 +36,13 @@ public class PlayActivity extends AppCompatActivity implements LeaderboardDialog
         mScoreLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment leaderboardDialog = newLeaderboardFragment(500);
+                Random r = new Random();
+                DialogFragment leaderboardDialog = newLeaderboardFragment(r.nextInt(1000));
                 leaderboardDialog.show(getSupportFragmentManager(), "LeaderboardDialogFragment");
             }
         });
+
+        mDbHelper = new FirebaseDbHelper(null);
     }
 
     @Override
@@ -41,6 +50,7 @@ public class PlayActivity extends AppCompatActivity implements LeaderboardDialog
         String initials = dialog.getInitials();
         int score = dialog.getScore();
 
+        mDbHelper.insert(new LeaderboardItem(initials, score));
         Toast.makeText(this, "Initials: " + initials + " Score: " + score, Toast.LENGTH_SHORT).show();
     }
 

@@ -1,29 +1,20 @@
 package com.example.android.ketteringmancontroller;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.android.ketteringmancontroller.data.FirebaseDbHelper;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.Iterator;
 import java.util.Random;
 
-public class LeaderboardActivity extends AppCompatActivity {
-    private static final int MAX_NUM_ITEMS = 10;
+public class LeaderboardActivity extends AppCompatActivity implements FirebaseDbHelper.DatabaseChangeListener {
 
     private EmptyRecyclerView mRecyclerView;
-    private DatabaseReference mDatabaseReference;
+    private FirebaseDbHelper mDbHelper;
     private FirebaseRecyclerAdapter adapter;
     private FirebaseRecyclerOptions options;
 
@@ -37,19 +28,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         mRecyclerView.setEmptyView(findViewById(R.id.empty_view));
         mRecyclerView.setHasFixedSize(true);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("LEADERBOARD_FIREBASE");
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (adapter != null)
-                    adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        mDbHelper = new FirebaseDbHelper(this);
 
         createAdapter();
     }
@@ -75,43 +54,32 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
-        Random random = new Random();
-        int score = random.nextInt(1000);
-        Toast.makeText(this, "Score: " + score, Toast.LENGTH_SHORT).show();
-        if (adapter != null) {
-            LeaderboardItem entry = new LeaderboardItem("AAA", score);
-            mDatabaseReference.push().setValue(entry, 0 - entry.getScore());
-            adapter.notifyDataSetChanged();
-        }
+        Random r = new Random();
+        LeaderboardItem item = new LeaderboardItem("AAA", r.nextInt(1000));
+        mDbHelper.insert(item);
     }
 
     public void remove(View view) {
-        Query query = mDatabaseReference.limitToFirst(1);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Iterator<DataSnapshot> children = dataSnapshot.getChildren().iterator();
-                    if (children.hasNext()) {
-                        DataSnapshot snapshot = children.next();
-                        snapshot.getRef().removeValue();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        if (adapter == null) {
+            return;
+        }
+        if (adapter.getItemCount() > 0) {
+            String key = adapter.getRef(0).getKey();
+            mDbHelper.delete(key);
+        }
     }
 
     private void createAdapter() {
-        options =
-                new FirebaseRecyclerOptions.Builder<LeaderboardItem>()
-                        .setQuery(mDatabaseReference.limitToFirst(MAX_NUM_ITEMS), LeaderboardItem.class)
+        options = new FirebaseRecyclerOptions.Builder<LeaderboardItem>()
+                .setQuery(mDbHelper.getQuery(), LeaderboardItem.class)
                         .build();
         adapter = new LeaderboardAdapter(options);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDataChanged() {
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
     }
 }
