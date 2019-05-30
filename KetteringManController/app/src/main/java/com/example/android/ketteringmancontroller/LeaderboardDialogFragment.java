@@ -52,7 +52,7 @@ public class LeaderboardDialogFragment extends DialogFragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.onDialogNegativeClick((LeaderboardDialogFragment) dialog);
+                        listener.onDialogNegativeClick(LeaderboardDialogFragment.this);
                     }
                 });
         mDialog = builder.create();
@@ -62,7 +62,7 @@ public class LeaderboardDialogFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        listener.onDialogDismiss((LeaderboardDialogFragment) dialog);
+        listener.onDialogDismiss(this);
     }
 
     // Override the Fragment.onAttach() method to instantiate the LeaderboardDialogListener
