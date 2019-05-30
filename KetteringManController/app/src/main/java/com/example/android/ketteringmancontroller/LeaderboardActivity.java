@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -113,38 +111,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<LeaderboardItem>()
                         .setQuery(mDatabaseReference.limitToFirst(MAX_NUM_ITEMS), LeaderboardItem.class)
                         .build();
-        adapter =
-                new FirebaseRecyclerAdapter<LeaderboardItem, LeaderboardViewHolder>(options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position, @NonNull final LeaderboardItem model) {
-                        holder.mInitialsText.setText(model.getInitials());
-                        holder.mScoreText.setText(String.format("%d", model.getScore()));
-                        switch (position) {
-                            case 0:
-                                holder.mImageView.setImageResource(R.drawable.ic_gold_medal);
-                                holder.mImageView.setVisibility(View.VISIBLE);
-                                break;
-                            case 1:
-                                holder.mImageView.setImageResource(R.drawable.ic_silver_medal);
-                                holder.mImageView.setVisibility(View.VISIBLE);
-                                break;
-                            case 2:
-                                holder.mImageView.setImageResource(R.drawable.ic_bronze_medal);
-                                holder.mImageView.setVisibility(View.VISIBLE);
-                                break;
-                            default:
-                                holder.mImageView.setVisibility(View.INVISIBLE);
-                                break;
-                        }
-                    }
-
-                    @NonNull
-                    @Override
-                    public LeaderboardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                        View itemView = LayoutInflater.from(getBaseContext()).inflate(R.layout.leaderboard_item, viewGroup, false);
-                        return new LeaderboardViewHolder(itemView);
-                    }
-                };
+        adapter = new LeaderboardAdapter(options);
         mRecyclerView.setAdapter(adapter);
     }
 }
