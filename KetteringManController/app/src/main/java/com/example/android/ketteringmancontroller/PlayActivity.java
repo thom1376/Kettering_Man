@@ -48,4 +48,10 @@ public class PlayActivity extends AppCompatActivity implements LeaderboardDialog
     public void onDialogNegativeClick(LeaderboardDialogFragment dialog) {
         Toast.makeText(this, "onDialogNegativeClick", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
 }

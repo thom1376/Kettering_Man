@@ -70,6 +70,12 @@ public class LeaderboardActivity extends AppCompatActivity {
             adapter.stopListening();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     public void add(View view) {
         Random random = new Random();
         int score = random.nextInt(1000);

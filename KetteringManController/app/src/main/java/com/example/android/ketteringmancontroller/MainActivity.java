@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Start the play activity
                 Intent intent = new Intent(MainActivity.this, PlayActivity.class);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
             }
         });
 
@@ -32,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Start the leaderboard activity
                 Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
             }
         });
+    }
+
+    public void startActivityWithAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }
