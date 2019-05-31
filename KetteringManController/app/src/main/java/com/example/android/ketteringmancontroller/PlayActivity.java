@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.ketteringmancontroller.data.FirebaseDbHelper;
 
@@ -15,6 +16,7 @@ public class PlayActivity extends AppCompatActivity
 
     TextView mScoreLabel;
     FirebaseDbHelper mDbHelper;
+    OnSwipeGestureListener swipeGestureListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,27 @@ public class PlayActivity extends AppCompatActivity
         });
 
         mDbHelper = new FirebaseDbHelper(null);
+        findViewById(R.id.swipe_area).setOnTouchListener(new OnSwipeGestureListener(this) {
+            @Override
+            public void onSwipeRight() {
+                Toast.makeText(PlayActivity.this, "Swipe right", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                Toast.makeText(PlayActivity.this, "Swipe left", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSwipeTop() {
+                Toast.makeText(PlayActivity.this, "Swipe up", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSwipeBottom() {
+                Toast.makeText(PlayActivity.this, "Swipe down", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
