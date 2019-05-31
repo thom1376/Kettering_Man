@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -56,6 +57,8 @@ public class LeaderboardDialogFragment extends DialogFragment {
                     }
                 });
         mDialog = builder.create();
+        Window dialogWindow = mDialog.getWindow();
+        dialogWindow.setBackgroundDrawableResource(R.drawable.leaderboard_dialog_bg);
         return mDialog;
     }
 

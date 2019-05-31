@@ -6,11 +6,13 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.firebase.database.annotations.NotNull;
+
 public class OnSwipeGestureListener implements View.OnTouchListener {
 
     private final GestureDetectorCompat mGestureDetector;
 
-    public OnSwipeGestureListener(Context context) {
+    public OnSwipeGestureListener(@NotNull Context context) {
         mGestureDetector = new GestureDetectorCompat(context, new GestureListener());
     }
 
