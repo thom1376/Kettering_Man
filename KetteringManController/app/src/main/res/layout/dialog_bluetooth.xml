@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/leaderboard_dialog_header_bg"
+        android:gravity="center"
+        android:text="Enable bluetooth" />
+
+    <TextView
+        style="@style/PlayActivityText"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/item_list_small_margins"
+        android:layout_marginLeft="@dimen/item_list_small_margins"
+        android:layout_marginTop="@dimen/item_list_margins"
+        android:layout_marginEnd="@dimen/item_list_small_margins"
+        android:layout_marginRight="@dimen/item_list_small_margins"
+        android:layout_marginBottom="@dimen/item_list_margins"
+        android:gravity="center"
+        android:text="Enable bluetooth to play" />
+</LinearLayout>
