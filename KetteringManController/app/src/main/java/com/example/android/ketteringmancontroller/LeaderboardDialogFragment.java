@@ -47,13 +47,13 @@ public class LeaderboardDialogFragment extends DialogFragment {
                         mInitials = initialsText.getText().toString();
 
                         if (!mInitials.isEmpty())
-                            listener.onDialogPositiveClick(LeaderboardDialogFragment.this);
+                            listener.onLeaderboardDialogPositiveClick(LeaderboardDialogFragment.this);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.onDialogNegativeClick(LeaderboardDialogFragment.this);
+                        listener.onLeaderboardDialogNegativeClick(LeaderboardDialogFragment.this);
                     }
                 });
         mDialog = builder.create();
@@ -65,7 +65,7 @@ public class LeaderboardDialogFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        listener.onDialogDismiss(this);
+        listener.onLeaderboardDialogDismiss(this);
     }
 
     // Override the Fragment.onAttach() method to instantiate the LeaderboardDialogListener
@@ -130,10 +130,10 @@ public class LeaderboardDialogFragment extends DialogFragment {
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface LeaderboardDialogListener {
-        void onDialogPositiveClick(LeaderboardDialogFragment dialog);
+        void onLeaderboardDialogPositiveClick(LeaderboardDialogFragment dialog);
 
-        void onDialogNegativeClick(LeaderboardDialogFragment dialog);
+        void onLeaderboardDialogNegativeClick(LeaderboardDialogFragment dialog);
 
-        void onDialogDismiss(LeaderboardDialogFragment dialog);
+        void onLeaderboardDialogDismiss(LeaderboardDialogFragment dialog);
     }
 }

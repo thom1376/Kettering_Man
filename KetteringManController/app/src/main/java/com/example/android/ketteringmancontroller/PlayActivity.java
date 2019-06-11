@@ -64,13 +64,7 @@ public class PlayActivity extends AppCompatActivity
         InitializeBluetooth();
     }
 
-    @Override
-    public void onDialogPositiveClick(LeaderboardDialogFragment dialog) {
-        String initials = dialog.getInitials();
-        int score = dialog.getScore();
-
-        mDbHelper.insert(new LeaderboardItem(initials, score));
-    }
+    //<editor-fold desc="Leaderboard methods">
 
     public static LeaderboardDialogFragment newLeaderboardFragment(int score) {
         LeaderboardDialogFragment leaderboardDialog = new LeaderboardDialogFragment();
@@ -83,23 +77,29 @@ public class PlayActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDialogNegativeClick(LeaderboardDialogFragment dialog) {
+    public void onLeaderboardDialogPositiveClick(LeaderboardDialogFragment dialog) {
+        String initials = dialog.getInitials();
+        int score = dialog.getScore();
+
+        mDbHelper.insert(new LeaderboardItem(initials, score));
+    }
+
+    @Override
+    public void onLeaderboardDialogNegativeClick(LeaderboardDialogFragment dialog) {
 
     }
 
     @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-    }
-
-    @Override
-    public void onDialogDismiss(LeaderboardDialogFragment dialog) {
+    public void onLeaderboardDialogDismiss(LeaderboardDialogFragment dialog) {
         finish();
     }
 
+    //</editor-fold>
+
+    //<editor-fold desc="Bluetooth methods">
+
     @Override
-    public void onDialogDismiss(BluetoothFragment dialog) {
+    public void onBluetoothDialogDismiss(BluetoothFragment dialog) {
         if (mBluetoothHelper.isSupported()) {
             BluetoothSupported();
             if (mBluetoothHelper.isEnabled()) {
@@ -148,6 +148,14 @@ public class PlayActivity extends AppCompatActivity
     private void BluetoothNotEnabled() {
         Log.d(LOG_TAG, "Bluetooth not enabled");
         finish();
+    }
+
+    //</editor-fold>
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 }

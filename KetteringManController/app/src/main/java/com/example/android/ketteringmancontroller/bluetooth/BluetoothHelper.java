@@ -39,15 +39,15 @@ public class BluetoothHelper {
         mIsInitialized = true;
     }
 
-    public Boolean isInitialized() {
+    public boolean isInitialized() {
         return mIsInitialized;
     }
 
-    public Boolean isSupported() {
+    public boolean isSupported() {
         return mIsSupported;
     }
 
-    public Boolean isEnabled() {
+    public boolean isEnabled() {
         return mIsEnabled;
     }
 

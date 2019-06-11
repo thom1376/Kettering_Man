@@ -79,7 +79,7 @@ public class BluetoothFragment extends DialogFragment {
                 mBluetoothHelper.setIsEnabled(false);
             }
             mBluetoothHelper.setIsInitialized(true);
-            listener.onDialogDismiss(this);
+            listener.onBluetoothDialogDismiss(this);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -120,6 +120,6 @@ public class BluetoothFragment extends DialogFragment {
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface BluetoothDialogListener {
-        void onDialogDismiss(BluetoothFragment dialog);
+        void onBluetoothDialogDismiss(BluetoothFragment dialog);
     }
 }
