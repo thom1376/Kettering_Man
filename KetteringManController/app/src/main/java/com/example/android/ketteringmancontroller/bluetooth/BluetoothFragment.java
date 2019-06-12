@@ -1,6 +1,5 @@
 package com.example.android.ketteringmancontroller.bluetooth;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -24,9 +23,10 @@ import com.example.android.ketteringmancontroller.R;
 
 public class BluetoothFragment extends DialogFragment {
 
+    protected static final int REQUEST_ENABLE_BT = 1;
     // Use this instance of the interface to deliver action events
     private BluetoothDialogListener listener;
-    private BluetoothHelper mBluetoothHelper;
+    private BluetoothAdapter mBluetoothAdapter;
     private AlertDialog mDialog;
 
     @NonNull
@@ -46,12 +46,13 @@ public class BluetoothFragment extends DialogFragment {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        mBluetoothHelper = ((KetteringMan) this.getActivity().getApplication()).getmBluetoothHelper();
-        if (!mBluetoothHelper.isInitialized())
-            mBluetoothHelper.Initialize();
-        if (!mBluetoothHelper.isEnabled()) {
+        mBluetoothAdapter = ((KetteringMan) this.getActivity().getApplication()).getmBluetoothAdapter();
+        if (((KetteringMan) this.getActivity().getApplication()).isBluetoothIsSupported()) {
+
+        }
+        if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, BluetoothHelper.REQUEST_ENABLE_BT);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
     }
 
@@ -72,13 +73,7 @@ public class BluetoothFragment extends DialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == BluetoothHelper.REQUEST_ENABLE_BT) {
-            if (resultCode == Activity.RESULT_OK) {
-                mBluetoothHelper.setIsEnabled(true);
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                mBluetoothHelper.setIsEnabled(false);
-            }
-            mBluetoothHelper.setIsInitialized(true);
+        if (requestCode == REQUEST_ENABLE_BT) {
             listener.onBluetoothDialogDismiss(this);
         } else {
             super.onActivityResult(requestCode, resultCode, data);

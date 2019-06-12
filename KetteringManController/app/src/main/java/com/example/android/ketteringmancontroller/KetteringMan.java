@@ -1,15 +1,21 @@
 package com.example.android.ketteringmancontroller;
 
 import android.app.Application;
-
-import com.example.android.ketteringmancontroller.bluetooth.BluetoothHelper;
+import android.bluetooth.BluetoothAdapter;
 
 public class KetteringMan extends Application {
-    private BluetoothHelper mBluetoothHelper;
+    private BluetoothAdapter mBluetoothAdapter;
+    private boolean mBluetoothIsSupported = true;
 
-    public BluetoothHelper getmBluetoothHelper() {
-        if (mBluetoothHelper == null)
-            mBluetoothHelper = BluetoothHelper.getInstance();
-        return mBluetoothHelper;
+    public BluetoothAdapter getmBluetoothAdapter() {
+        if (mBluetoothAdapter == null && mBluetoothIsSupported) {
+            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            mBluetoothIsSupported = (mBluetoothAdapter != null);
+        }
+        return mBluetoothAdapter;
+    }
+
+    public boolean isBluetoothIsSupported() {
+        return mBluetoothIsSupported;
     }
 }

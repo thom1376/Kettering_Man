@@ -1,5 +1,6 @@
 package com.example.android.ketteringmancontroller;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.ketteringmancontroller.bluetooth.BluetoothFragment;
-import com.example.android.ketteringmancontroller.bluetooth.BluetoothHelper;
 import com.example.android.ketteringmancontroller.data.FirebaseDbHelper;
 
 import java.util.Random;
@@ -21,7 +21,7 @@ public class PlayActivity extends AppCompatActivity
     private final static String LOG_TAG = PlayActivity.class.getSimpleName();
     private TextView mScoreLabel;
     private FirebaseDbHelper mDbHelper;
-    private BluetoothHelper mBluetoothHelper;
+    private BluetoothAdapter mBluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,24 +100,18 @@ public class PlayActivity extends AppCompatActivity
 
     @Override
     public void onBluetoothDialogDismiss(BluetoothFragment dialog) {
-        if (mBluetoothHelper.isSupported()) {
-            BluetoothSupported();
-            if (mBluetoothHelper.isEnabled()) {
-                BluetoothEnabled();
-            } else {
-                BluetoothNotEnabled();
-            }
+        if (mBluetoothAdapter.isEnabled()) {
+            BluetoothEnabled();
         } else {
-            BluetoothNotSupported();
+            BluetoothNotEnabled();
         }
     }
 
     private void InitializeBluetooth() {
-        mBluetoothHelper = ((KetteringMan) this.getApplication()).getmBluetoothHelper();
-        mBluetoothHelper.Initialize();
-        if (mBluetoothHelper.isSupported()) {
+        mBluetoothAdapter = ((KetteringMan) this.getApplication()).getmBluetoothAdapter();
+        if (((KetteringMan) this.getApplication()).isBluetoothIsSupported()) {
             BluetoothSupported();
-            if (!mBluetoothHelper.isEnabled()) {
+            if (!mBluetoothAdapter.isEnabled()) {
                 EnableBluetooth();
             } else {
                 BluetoothEnabled();
