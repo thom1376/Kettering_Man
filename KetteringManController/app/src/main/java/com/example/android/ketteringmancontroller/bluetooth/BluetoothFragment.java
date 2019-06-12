@@ -23,7 +23,7 @@ import com.example.android.ketteringmancontroller.R;
 
 public class BluetoothFragment extends DialogFragment {
 
-    protected static final int REQUEST_ENABLE_BT = 1;
+    private static final int REQUEST_ENABLE_BT = 1;
     // Use this instance of the interface to deliver action events
     private BluetoothDialogListener listener;
     private BluetoothAdapter mBluetoothAdapter;
